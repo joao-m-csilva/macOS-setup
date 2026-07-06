@@ -1,0 +1,2 @@
+brew autoremove
+brew cleanup

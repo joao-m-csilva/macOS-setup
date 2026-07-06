@@ -1,0 +1,11 @@
+[user]
+    name = João Marcos
+    email = joao.carvalhosilva@outlook.com
+[init]
+    defaultBranch = main
+[pull]
+    rebase = true
+[fetch]
+    prune = true
+[core]
+    editor = vim
