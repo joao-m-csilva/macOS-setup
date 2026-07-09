@@ -67,7 +67,8 @@ Executar o script responsável pela criação da chave SSH:
 
 O script irá:
 
-- Gerar uma chave SSH utilizando ED25519.
+- Verificar a existência de alguma chave SSH ED25519, e se existir irá copiar para a área de transferência.
+- Caso não exista nenhuma chave SSH presente, irá gerar uma chave SSH utilizando ED25519.
 - Configurar o ssh-agent.
 - Adicionar a chave ao Keychain do macOS.
 - Copiar a chave pública para a área de transferência.
@@ -91,7 +92,7 @@ ssh -T git@github.com
 Executar o script principal de instalação:
 
 ```bash
-./install.sh
+./scripts/install.sh
 ```
 
 O script será responsável por:
@@ -127,6 +128,7 @@ Exemplos:
 - Google Chrome
 - DBeaver
 - IntelliJ IDEA
+- Postman
 
 ---
 
@@ -173,6 +175,22 @@ npm install
 ou o comando específico utilizado pelo projeto.
 
 ---
+
+# 9. Configurar o AWS CLI
+
+Após a instalação:
+
+Verificar:
+
+```bash
+aws --version
+```
+
+Configurar Credenciais:
+
+```zsh
+aws configure
+```
 
 # Finalização
 
