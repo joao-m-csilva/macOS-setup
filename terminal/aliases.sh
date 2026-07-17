@@ -1,9 +1,9 @@
 # ==================================================
-# ================= Navegação ======================
+# ================= Navigation ======================
 # ==================================================
 
-# Lista arquivos em formato longo, incluindo ocultos,
-# com tamanhos em formato legível (KB, MB, GB)
+# Lists files in long format, including hidden ones,
+# with sizes in human-readable format (KB, MB, GB)
 alias ll="ls -lah"
 
 
@@ -32,16 +32,16 @@ alias gp="git push"
 # Git Fetch
 alias gf="git fetch"
 
-# Git Log (histórico em formato gráfico)
+# Git Log (history in graphical format)
 alias gl="git log --oneline --graph --decorate --all"
 
 
 # ==================================================
-# ================== Funções ========================
+# ================== Functions =====================
 # ==================================================
 
-# Inicializa um novo repositório Git
-# Cria um README.md e um .gitignore padrão, caso não existam
+# Initializes a new Git repository
+# Creates a README.md and a default .gitignore if they do not exist
 ginit() {
     git init
 
@@ -58,7 +58,7 @@ dist/
 EOF
     fi
 
-    echo "✅ Repositório Git inicializado."
+    echo "Git repository initialized."
 }
 
 
@@ -66,5 +66,5 @@ EOF
 # ==================== Bash ========================
 # ==================================================
 
-# Usar o Bash do Homebrew em vez do nativo antigo
+# Use Homebrew's Bash instead of the old native version
 alias bash='/opt/homebrew/bin/bash'
