@@ -5,11 +5,11 @@ main () {
     then
         echo "Git not found. Installing..."
         install_git
-        git_global_config
+        git_ignore_global_config
     else
         echo "Git already installed."
-        echo "Setting up Git global."
-        git_global_config
+        echo "Setting up Git ignore global."
+        git_ignore_global_config
         echo "Finished!"
         echo "Git version "
         git --version
@@ -20,9 +20,9 @@ install_git () {
     brew install git
 }
 
-git_global_config () {
+git_ignore_global_config () {
     echo ""
-    echo "Setting up Git global..."
+    echo "Setting up Git ignore global..."
 
     cp "$ROOT/templates/git/.gitignore_global" ~/.gitignore_global
 

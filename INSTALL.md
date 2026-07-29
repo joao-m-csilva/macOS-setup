@@ -18,23 +18,7 @@ Após a instalação limpa do macOS:
 
 ---
 
-# 2. Instalar o Homebrew
-
-Instalar o Homebrew utilizando o comando oficial:
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Validar a instalação:
-
-```bash
-brew --version
-```
-
----
-
-# 3. Clonar este repositório
+# 2. Clonar este repositório
 
 Criar uma pasta para armazenar projetos:
 
@@ -56,6 +40,8 @@ cd macbook-setup
 ```
 
 ---
+
+# 3. Iniciar
 
 # 4. Configurar SSH
 
