@@ -57,3 +57,6 @@ cask "dbeaver"
 
 # API testing tool
 cask "postman"
+
+# Notes and studies
+cask "notion"
