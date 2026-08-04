@@ -9,6 +9,10 @@
 # Official GitHub CLI (Pull Requests, Issues, Repositories, etc.)
 brew "gh"
 
+# Displays the project directory structure as a tree
+# Useful for documentation and README generation
+brew "tree"
+
 # ==================================================
 # =================== Node.js ======================
 # ==================================================

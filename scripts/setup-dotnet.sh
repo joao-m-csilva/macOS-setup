@@ -10,12 +10,23 @@ main() {
  (_)_| \_|_____| |_|   |____/|_____| |_|  \___/|_|    
                                                                                                        
 EOF
-
-    echo "Installed .NET SDKs:"
-    dotnet --list-sdks
-
-    echo
-    echo "Installed .NET Runtimes:"
-    dotnet --list-runtimes
-
+    if ! command -v dotnet &> /dev/null
+    then 
+        echo "Setting up .NET environment..."
+        dotnet_install
+        echo ".NET installed!"
+        dotnet --version
+    else
+        echo "Installed .NET SDKs:"
+        dotnet --list-sdks
+        echo "Installed .NET Runtimes:"
+        dotnet --list-runtimes
+    fi
+        
 }
+
+dotnet_install() {
+    brew install dotnet
+}
+
+main

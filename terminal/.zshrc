@@ -20,5 +20,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # Personal config
 # ==========================
 
-source "$HOME/.config/terminal/exports.sh"
-source "$HOME/.config/terminal/aliases.sh"
+[[ -f "$HOME/.config/terminal/exports.sh" ]] && source "$HOME/.config/terminal/exports.sh"
+
+[[ -f "$HOME/.config/terminal/aliases.sh" ]] && source "$HOME/.config/terminal/aliases.sh"

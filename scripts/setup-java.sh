@@ -19,7 +19,11 @@ EOF
     else
         echo "There are already installed jdk versions."
         echo "Installed JDKs:"
-            
+        /usr/libexec/java_home -V
+        if [[ "$BOTH_OPTION" == 1 ]]
+        then
+            dotnet_install_sequence
+        fi       
     fi
 }
 
@@ -34,13 +38,20 @@ java_install() {
         if [[ "$USER_ANSWER" != "y" && "$USER_ANSWER" != "n" ]]
         then 
             echo "Type only y or n:"
-        elif [[ "$USER_ANSWER" != "y" ]]
+        elif [[ "$USER_ANSWER" == "y" && "$BOTH_OPTION" != 1 ]]
         then
             echo "Setting up Java Environment..."
             brew install --cask zulu@08
             brew install --cask intellij-idea
             break
-        elif [[ "$USER_ANSWER" != "n" ]]
+        elif [[ "$USER_ANSWER" == "y" && "$BOTH_OPTION" == 1 ]]
+        then
+            echo "Setting up Java and .NET environment"
+            brew install --cask zulu@08 
+            brew install --cask intellij-idea
+            dotnet_install_sequence
+            break
+        elif [[ "$USER_ANSWER" == "n" ]]
         then
             echo "Would you like to install SDKMAN! to manage jdk versions? y/n"
             echo "PS: IntelliJ IDEA will not be installed."
@@ -51,22 +62,26 @@ java_install() {
                 if [[ "$USER_ANSWER" != "y" && "$USER_ANSWER" != "n" ]]
                 then
                     echo "Type only y or n:"
-                elif if [[ "$USER_ANSWER" != "y" && "$BOTH_OPTION" == 1 ]]
+                    read -r USER_ANSWER
+                elif [[ "$USER_ANSWER" == "y" && "$BOTH_OPTION" == 1 ]]
                 then
+                    bash_install
                     sdkman_install
                     dotnet_install_sequence
                     break
-                elif if [[ "$USER_ANSWER" != "y" && "$BOTH_OPTION" == 0 ]]
+                elif [[ "$USER_ANSWER" == "y" && "$BOTH_OPTION" != 1 ]]
                 then
+                    bash_install
                     sdkman_install
                     break
-                elif if [[ "$USER_ANSWER" != "n" && "$BOTH_OPTION" == 1 ]]
+                elif [[ "$USER_ANSWER" == "n" && "$BOTH_OPTION" == 1 ]]
                 then
                     dotnet_install_sequence
                     break
-                elif [[ "$USER_ANSWER" != "n" && "$BOTH_OPTION" == 0 ]]
+                elif [[ "$USER_ANSWER" == "n" && "$BOTH_OPTION" != 1 ]]
                 then
                     break
+                fi
             done
             break
         fi
@@ -74,12 +89,17 @@ java_install() {
 }
 
 bash_install() {
-    brew install bash
-    source .zshrc
+    if [[ ! -x "/opt/homebrew/bin/bash" ]]
+    then
+        brew install bash
+    fi
 }
 
 sdkman_install() {
-    curl -s "https://get.sdkman.io" | /opt/homebrew/bin/bash
+    if [[ ! -f "$HOME/.sdkman/bin/sdkman-init.sh" ]]
+    then
+        curl -s "https://get.sdkman.io" | /opt/homebrew/bin/bash
+    fi
 }
 
 dotnet_install_sequence() {

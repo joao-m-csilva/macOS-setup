@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-install_homebrew () {
+main () {
     echo ""
     echo "Installing Homebrew..."
 
@@ -14,6 +14,7 @@ install_homebrew () {
     fi
 
     eval "$(/opt/homebrew/bin/brew shellenv)" 
+    install_brew_packages
 
 }
 
@@ -23,5 +24,4 @@ install_brew_packages () {
 
     brew bundle --file="$ROOT/Brewfile"
 }
-install_homebrew
-install_brew_packages
+main

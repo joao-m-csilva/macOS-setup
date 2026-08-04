@@ -1,29 +1,45 @@
 #!/usr/bin/env bash
 
 EMAIL="$1"
-
-if [ -z "$EMAIL" ]; then
-    echo "Use: ./setup-ssh.sh seu-email@example.com"
-    exit 1
-fi
-
 SSH_KEY="$HOME/.ssh/id_ed25519"
 
-if [[ -f "$SSH_KEY" ]]; then
-    echo "SSH Key already exists at $SSH_KEY"
-    pbcopy < "$SSH_KEY.pub"
-    echo "SSH Key copied to the clipboard."
+main(){
+    while true
+    do
+       if [[ -f "$SSH_KEY" ]]; then
+            echo "SSH Key already exists at $SSH_KEY"
+            pbcopy < "$SSH_KEY.pub"
+            echo "SSH Key copied to the clipboard."
+            break
+        elif [[ -n "$EMAIL" ]]
+        then
+            USER_EMAIL="$EMAIL"
+            ssh_key_generate
+            break
+        elif [[ -z "$EMAIL" || -n "$USER_EMAIL" ]]
+        then
+            ssh_key_generate 
+            break
+        elif [[ -z "$EMAIL" && -z "$USER_EMAIL" ]]
+        then
+            echo "Type the e-mail to link to the SSH Key"
+            read -r EMAIL
+        fi
+    done 
     exit 0
-fi
+}
 
-ssh-keygen -t ed25519 -C "$EMAIL" -f "$SSH_KEY"
+ssh_key_generate() {
 
-eval "$(ssh-agent -s)"
+    ssh-keygen -t ed25519 -C "$USER_EMAIL" -f "$SSH_KEY"
 
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    eval "$(ssh-agent -s)"
 
-pbcopy < ~/.ssh/id_ed25519.pub
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
-echo
-echo "The new SSH key was generated and copied to clipboard."
-echo "Paste it into GitHub."
+    pbcopy < ~/.ssh/id_ed25519.pub
+    
+    echo "The new SSH key was generated and copied to clipboard."
+    echo "Paste it into GitHub."
+}
+main

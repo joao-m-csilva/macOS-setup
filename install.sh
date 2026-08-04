@@ -107,6 +107,31 @@ EOF
         break
     done
 
+    echo "Would you like to setup your SSH key?"
+    read -r USER_ANSWER
+
+    while true
+    do
+        if [[ "$USER_ANSWER" != "y" && "$USER_ANSWER" != "n" ]]
+                then
+                    echo "Type only y or n: "
+                    read -r USER_ANSWER
+            elif [[ "$USER_ANSWER" == "y" ]]
+            then
+                echo "What is the e-mail to link to the SSH Key?"
+                read -r USER_EMAIL
+                export USER_EMAIL
+                "$ROOT/scripts/setup-ssh.sh"
+                break
+            elif [[ "$USER_ANSWER" == "n" ]]
+            then
+                echo "You can do this process later."
+                echo "Run ./scripts/setup-ssh.sh yourmail@email.com"
+                echo "Finishing..."
+                break
+        fi
+    done
+
     "$ROOT/scripts/update.sh"
     "$ROOT/scripts/cleanup.sh"
 
