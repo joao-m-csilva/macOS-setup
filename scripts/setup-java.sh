@@ -41,13 +41,13 @@ java_install() {
         elif [[ "$USER_ANSWER" == "y" && "$BOTH_OPTION" != 1 ]]
         then
             echo "Setting up Java Environment..."
-            brew install --cask zulu@08
+            brew install --cask zulu@8
             brew install --cask intellij-idea
             break
         elif [[ "$USER_ANSWER" == "y" && "$BOTH_OPTION" == 1 ]]
         then
             echo "Setting up Java and .NET environment"
-            brew install --cask zulu@08 
+            brew install --cask zulu@8 
             brew install --cask intellij-idea
             dotnet_install_sequence
             break

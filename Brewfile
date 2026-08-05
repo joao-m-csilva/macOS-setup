@@ -53,7 +53,7 @@ cask "google-chrome"
 cask "docker"
 
 # Database management client
-cask "dbeaver"
+cask "dbeaver-community"
 
 # API testing tool
 cask "postman"
