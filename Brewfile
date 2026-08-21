@@ -20,6 +20,9 @@ brew "tree"
 # Node.js version manager
 brew "nvm"
 
+# Node packages manager
+brew "npm"
+
 
 # ==================================================
 # ================== Databases =====================

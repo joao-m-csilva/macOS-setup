@@ -45,7 +45,7 @@ if [[ ! -f "$AWS_DIR/config" && -f "$SOURCE_DIR/config.example" ]]; then
     cp "$SOURCE_DIR/config.example" "$AWS_DIR/config"
 else
     if [[ -f "$AWS_DIR/config" ]]; then
-        echo "Credentials file already exists. Kept unchanged."
+        echo "Config file already exists. Kept unchanged."
     fi
 fi
 

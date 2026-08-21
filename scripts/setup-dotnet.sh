@@ -10,23 +10,33 @@ main() {
  (_)_| \_|_____| |_|   |____/|_____| |_|  \___/|_|    
                                                                                                        
 EOF
-    if ! command -v dotnet &> /dev/null
+    if ! command -v dotnet  &> /dev/null
     then 
         echo "Setting up .NET environment..."
         dotnet_install
         echo ".NET installed!"
         dotnet --version
+    elif ! command -v rider --version  &> /dev/null
+        then
+            rider_install
     else
         echo "Installed .NET SDKs:"
         dotnet --list-sdks
         echo "Installed .NET Runtimes:"
         dotnet --list-runtimes
+        echo "Rider already installed."
+        rider -v
     fi
         
 }
 
 dotnet_install() {
     brew install dotnet
+
+}
+
+rider_install() {
+    brew install --cask rider
 }
 
 main

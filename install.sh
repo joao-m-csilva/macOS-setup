@@ -41,6 +41,11 @@ EOF
                 "$ROOT/scripts/setup-homebrew.sh"
 
                 echo ""
+                echo "Setting up terminal config..."
+                "$ROOT/scripts/setup-terminal.sh"
+                echo "Finished terminal config."
+
+                echo ""
                 echo "Setting up Git..."
                 "$ROOT/scripts/setup-git.sh"
                 
