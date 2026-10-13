@@ -53,7 +53,7 @@ cask "visual-studio-code"
 cask "google-chrome"
 
 # Docker Desktop (includes Docker Engine, CLI, and Docker Compose)
-cask "docker"
+cask "docker-desktop"
 
 # Database management client
 cask "dbeaver-community"
