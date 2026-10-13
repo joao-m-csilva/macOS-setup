@@ -8,15 +8,15 @@ main() {
    |  \| |  _|   | |   \___ \|  _|   | | | | | | |_) |
   _| |\  | |___  | |    ___) | |___  | | | |_| |  __/ 
  (_)_| \_|_____| |_|   |____/|_____| |_|  \___/|_|    
-                                                                                                       
+                                                                                                      
 EOF
-    if ! command -v dotnet  &> /dev/null
+    if ! command -v dotnet &> /dev/null
     then 
         echo "Setting up .NET environment..."
         dotnet_install
         echo ".NET installed!"
         dotnet --version
-    elif ! command -v rider --version  &> /dev/null
+    elif ! command -v rider &> /dev/null
         then
             rider_install
     else
@@ -39,4 +39,6 @@ rider_install() {
     brew install --cask rider
 }
 
-main
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
