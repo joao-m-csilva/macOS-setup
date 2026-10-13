@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-EMAIL="$1"
+EMAIL="${1:-}"
 SSH_KEY="$HOME/.ssh/id_ed25519"
 
 main(){
@@ -16,17 +16,16 @@ main(){
             USER_EMAIL="$EMAIL"
             ssh_key_generate
             break
-        elif [[ -z "$EMAIL" || -n "$USER_EMAIL" ]]
+        elif [[ -n "$USER_EMAIL" ]]
         then
             ssh_key_generate 
             break
-        elif [[ -z "$EMAIL" && -z "$USER_EMAIL" ]]
-        then
+        else
             echo "Type the e-mail to link to the SSH Key"
             read -r EMAIL
         fi
     done 
-    exit 0
+    return 0
 }
 
 ssh_key_generate() {
@@ -42,4 +41,7 @@ ssh_key_generate() {
     echo "The new SSH key was generated and copied to clipboard."
     echo "Paste it into GitHub."
 }
-main
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
