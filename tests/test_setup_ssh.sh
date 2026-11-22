@@ -31,10 +31,17 @@ test_existing_ssh_key() {
 
     source "$TARGET_SCRIPT"
     SSH_KEY="$tmp_dir/id_ed25519"
+    SSH_CONFIG="$tmp_dir/config"
     pbcopy() { pbcopy_called=1; }
     ssh_key_generate() { keygen_called=1; }
 
     main > /dev/null 2>&1
+
+    if [[ ! -f "$tmp_dir/config" ]] || ! grep -Fq "UseKeychain yes" "$tmp_dir/config"; then
+        rm -rf "$tmp_dir"
+        echo "FAIL: configure_ssh_config did not write UseKeychain yes to ssh config"
+        exit 1
+    fi
 
     rm -rf "$tmp_dir"
 
@@ -42,7 +49,8 @@ test_existing_ssh_key() {
         echo "FAIL: existing key flow did not copy to clipboard or invoked generator"
         exit 1
     fi
-    echo "PASS: handles existing ssh key by copying to clipboard"
+    echo "PASS: handles existing ssh key by copying to clipboard and updating ssh config"
+
 }
 
 test_email_from_argument() {
