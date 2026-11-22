@@ -6,6 +6,16 @@
 # with sizes in human-readable format (KB, MB, GB)
 alias ll="ls -lah"
 
+# Quick parent directory navigation
+alias ..="cd .."
+alias ...="cd ../.."
+
+# Clear terminal screen
+alias c="clear"
+
+# Reload Zsh configuration
+alias reload="source ~/.zshrc"
+
 
 # ==================================================
 # ==================== Git =========================
@@ -29,8 +39,14 @@ alias gca="git commit --amend"
 # Git Push
 alias gp="git push"
 
+# Git Pull
+alias gpl="git pull"
+
 # Git Fetch
 alias gf="git fetch"
+
+# Git Diff
+alias gd="git diff"
 
 # Git Log (history in graphical format)
 alias gl="git log --oneline --graph --decorate --all"
@@ -68,3 +84,4 @@ EOF
 
 # Use Homebrew's Bash instead of the old native version
 alias bash='/opt/homebrew/bin/bash'
+
