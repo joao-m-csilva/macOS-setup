@@ -84,4 +84,7 @@ git_ignore_global_config () {
     git config --global core.excludesfile "$HOME/.gitignore_global"
 }
 
-main
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
+
