@@ -20,31 +20,59 @@ brew "tree"
 # Node.js version manager
 brew "nvm"
 
-# Node packages manager
-brew "npm"
-
-
 # ==================================================
 # ================== Databases =====================
 # ==================================================
 
 # PostgreSQL for local development
-brew "postgresql"
+brew "postgresql@18"
 
 # ==================================================
 # =================== CLI Tools ====================
 # ==================================================
 
-# Extremely fast text search across files
-# Used internally by VS Code
-brew "ripgrep"
+# Official Amazon Web Services CLI
+brew "awscli"
+
+# Modern GNU Bash shell
+brew "bash"
+
+# System information fetch tool
+brew "fastfetch"
 
 # Interactive finder for files, directories, and shell history
 brew "fzf"
 
+# Vim-fork focused on extensibility and usability
+brew "neovim"
+
+# Prompt theme engine for any shell
+brew "oh-my-posh"
+
+# Extremely fast text search across files
+# Used internally by VS Code
+brew "ripgrep"
+
+# Terminal multiplexer
+brew "tmux"
+
+# Smarter cd command for quick directory navigation
+brew "zoxide"
+
+# ==================================================
+# ==================== Fonts =======================
+# ==================================================
+
+# Nerd Fonts required for Oh My Posh icons and glyphs
+cask "font-caskaydia-cove-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
+
 # ==================================================
 # ================= Applications ===================
 # ==================================================
+
+# Terminal emulator for macOS
+cask "iterm2"
 
 # Primary code editor
 cask "visual-studio-code"
