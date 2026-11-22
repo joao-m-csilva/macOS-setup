@@ -5,23 +5,71 @@ ROOT="${ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 main () {
     echo ""
     echo "Setting up terminal environment..."
-    copy_terminal_configs
+    install_oh_my_zsh
+    install_zsh_plugins
+    link_terminal_configs
+    setup_vimrc
     setup_zshrc
     echo "Terminal setup completed!"
 }
 
-copy_terminal_configs () {
+install_oh_my_zsh () {
+    local omz_dir="$HOME/.oh-my-zsh"
+
+    if [[ ! -d "$omz_dir" ]]; then
+        echo "Installing Oh My Zsh..."
+        RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    else
+        echo "Oh My Zsh already installed."
+    fi
+}
+
+install_zsh_plugins () {
+    local custom_plugins_dir="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+
+    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+        return 0
+    fi
+
+    mkdir -p "$custom_plugins_dir"
+
+    if [[ ! -d "$custom_plugins_dir/zsh-autosuggestions" ]]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions "$custom_plugins_dir/zsh-autosuggestions"
+        echo "Installed zsh-autosuggestions plugin."
+    fi
+
+    if [[ ! -d "$custom_plugins_dir/zsh-syntax-highlighting" ]]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$custom_plugins_dir/zsh-syntax-highlighting"
+        echo "Installed zsh-syntax-highlighting plugin."
+    fi
+}
+
+link_terminal_configs () {
     local config_dir="$HOME/.config/terminal"
     mkdir -p "$config_dir"
 
     if [[ -f "$ROOT/terminal/exports.sh" ]]; then
-        cp "$ROOT/terminal/exports.sh" "$config_dir/exports.sh"
-        echo "Updated $config_dir/exports.sh"
+        ln -sf "$ROOT/terminal/exports.sh" "$config_dir/exports.sh"
+        echo "Linked $config_dir/exports.sh"
     fi
 
     if [[ -f "$ROOT/terminal/aliases.sh" ]]; then
-        cp "$ROOT/terminal/aliases.sh" "$config_dir/aliases.sh"
-        echo "Updated $config_dir/aliases.sh"
+        ln -sf "$ROOT/terminal/aliases.sh" "$config_dir/aliases.sh"
+        echo "Linked $config_dir/aliases.sh"
+    fi
+}
+
+setup_vimrc () {
+    local target_vimrc="$HOME/.vimrc"
+    local source_vimrc="$ROOT/terminal/.vimrc"
+
+    if [[ -f "$source_vimrc" ]]; then
+        if [[ -f "$target_vimrc" && ! -L "$target_vimrc" ]]; then
+            cp "$target_vimrc" "${target_vimrc}.backup"
+            echo "Backed up existing ~/.vimrc to ~/.vimrc.backup"
+        fi
+        ln -sf "$source_vimrc" "$target_vimrc"
+        echo "Linked $target_vimrc"
     fi
 }
 
@@ -34,7 +82,7 @@ setup_zshrc () {
         echo "Created ~/.zshrc from template."
     elif [[ -f "$target_zshrc" ]]; then
         echo "Found existing ~/.zshrc."
-        
+
         local source_exports_line='[[ -f "$HOME/.config/terminal/exports.sh" ]] && source "$HOME/.config/terminal/exports.sh"'
         local source_aliases_line='[[ -f "$HOME/.config/terminal/aliases.sh" ]] && source "$HOME/.config/terminal/aliases.sh"'
 
@@ -60,4 +108,6 @@ setup_zshrc () {
     fi
 }
 
-main
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
